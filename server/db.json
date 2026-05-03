@@ -1,0 +1,57 @@
+{
+  "patients": [
+    {
+      "id": "ABHA-01",
+      "name": "Eleanor Vance",
+      "age": 42,
+      "gender": "Female",
+      "bloodGroup": "AB Negative",
+      "status": "Active",
+      "history": [
+        {
+          "condition": "Type 2 Diabetes",
+          "details": "Diagnosed 2018. Management: Metformin 500mg"
+        },
+        {
+          "condition": "Hypertension",
+          "details": "Well controlled with lifestyle changes and monitoring"
+        }
+      ],
+      "allergies": [
+        "Penicillin - Anaphylaxis response documented in 2021"
+      ],
+      "vitals": {
+        "bloodPressure": "120/82",
+        "heartRate": "72 bpm",
+        "spO2": "98%"
+      }
+    },
+    {
+      "id": "ABHA-02",
+      "name": "Rahul Sharma",
+      "age": 45,
+      "gender": "Male",
+      "bloodGroup": "O Positive",
+      "status": "Active",
+      "history": [
+        {
+          "condition": "Type 2 Diabetes Mellitus",
+          "details": "Diagnosed 2019 - On Metformin"
+        },
+        {
+          "condition": "Hypertension",
+          "details": "Grade 1 - Controlled"
+        }
+      ],
+      "allergies": [
+        "Penicillin - Anaphylactic response reported"
+      ],
+      "vitals": {
+        "bloodPressure": "135/88",
+        "heartRate": "78 bpm",
+        "spO2": "97%"
+      }
+    }
+  ],
+  "queue": []
+}
