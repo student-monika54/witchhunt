@@ -53,5 +53,15 @@
       }
     }
   ],
-  "queue": []
+  "queue": [
+    {
+      "id": "Q-1777815168016",
+      "patientId": "ABHA-01",
+      "patientName": "Eleanor Vance",
+      "department": "General Consultation",
+      "status": "Waiting",
+      "waitTimeEstimated": 13,
+      "joinedAt": "2026-05-03T13:32:48.016Z"
+    }
+  ]
 }
