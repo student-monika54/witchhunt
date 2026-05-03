@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Users, FileText, Loader, Zap, CheckCircle, Rocket, Save, Activity, Clock, ShieldCheck, TrendingUp, ArrowRight, Thermometer } from 'lucide-react';
+import { apiUrl } from '../api';
 
 export default function DoctorDashboard() {
   const [queue, setQueue] = useState([]);
@@ -15,7 +16,7 @@ export default function DoctorDashboard() {
 
   // Fetch queue (polling)
   const refreshQueue = () => {
-    fetch('http://localhost:5000/api/queue')
+    fetch(apiUrl('/api/queue'))
       .then(res => res.json())
       .then(data => {
         // Mock chief complaint and priority if missing for demo purposes
@@ -44,7 +45,7 @@ export default function DoctorDashboard() {
     setGeneratedDoc('');
 
     try {
-      const resPatient = await fetch(`http://localhost:5000/api/patient/${patientId}`);
+      const resPatient = await fetch(apiUrl(`/api/patient/${patientId}`));
       const pData = await resPatient.json();
       setPatientData(pData);
 
@@ -64,7 +65,7 @@ export default function DoctorDashboard() {
 
     setTimeout(() => {
       setPipelineStep(2);
-      fetch('http://localhost:5000/api/ai/summary', {
+      fetch(apiUrl('/api/ai/summary'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ patientId: selectedPatient })
@@ -112,7 +113,7 @@ export default function DoctorDashboard() {
   const handleNext = async () => {
     setLoadingNext(true);
     try {
-      await fetch('http://localhost:5000/api/queue/next', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+      await fetch(apiUrl('/api/queue/next'), { method: 'POST', headers: { 'Content-Type': 'application/json' } });
       refreshQueue();
     } catch (err) {
       console.error(err);

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Activity, Loader, Bell, Calendar, Clock, FileText, CheckCircle } from 'lucide-react';
+import { apiUrl } from '../api';
 
 export default function PatientDashboard() {
   const [patientId, setPatientId] = useState('ABHA-01'); // Dummy patient
@@ -10,11 +11,11 @@ export default function PatientDashboard() {
 
   // Fetch patient and queue status
   const refreshQueue = () => {
-    fetch(`http://localhost:5000/api/patient/${patientId}`)
+    fetch(apiUrl(`/api/patient/${patientId}`))
       .then(res => res.json())
       .then(data => setPatientData(data));
       
-    fetch(`http://localhost:5000/api/queue`)
+    fetch(apiUrl('/api/queue'))
       .then(res => res.json())
       .then(data => {
         const myStatus = data.find(q => q.patientId === patientId);
@@ -44,7 +45,7 @@ export default function PatientDashboard() {
   const handleJoinQueue = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/queue/add', {
+      const res = await fetch(apiUrl('/api/queue/add'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ patientId })

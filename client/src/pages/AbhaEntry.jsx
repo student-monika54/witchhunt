@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QrCode, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { apiUrl } from '../api';
 
 export default function AbhaEntry() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function AbhaEntry() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`http://localhost:5000/api/patient/${abhaId}`);
+      const res = await fetch(apiUrl(`/api/patient/${abhaId}`));
       if (!res.ok) throw new Error('Patient not found. Try ABHA-01 or ABHA-02');
       const data = await res.json();
       setPatientData(data);
@@ -28,7 +29,7 @@ export default function AbhaEntry() {
     setLoading(true);
     try {
       // Simulate adding to queue
-      const res = await fetch('http://localhost:5000/api/queue/add', {
+      const res = await fetch(apiUrl('/api/queue/add'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ patientId: patientData.id })
