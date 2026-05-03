@@ -104,16 +104,10 @@ This project currently stores data in server/db.json. That is fine for demos, bu
 
 ## Useful Scripts
 
-Root:
-- npm run dev: run client and server together
-- npm run client: run client only
-- npm run server: run server only
-
 Client:
+- cd client
 - npm run dev
-- npm run build
-- npm run preview
 
 Server:
+- cd serve
 - npm run dev
-- npm start
