@@ -7,13 +7,23 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const dbPath = path.join(__dirname, 'db.json');
 
-app.use(cors());
+// Updated CORS to allow your Vercel frontend specifically
+app.use(cors({
+  origin: 'https://care-flow-ai-nine.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Helper to read DB
 const readDB = () => {
-  const data = fs.readFileSync(dbPath, 'utf8');
-  return JSON.parse(data);
+  try {
+    const data = fs.readFileSync(dbPath, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    return { patients: [], queue: [] };
+  }
 };
 
 // Helper to write DB
@@ -47,7 +57,6 @@ app.post('/api/queue/add', (req, res) => {
     return res.status(404).json({ error: 'Patient not found.' });
   }
 
-  // Check if already in queue
   const existingQueueItem = db.queue.find(q => q.patientId === patientId);
   if (existingQueueItem) {
     return res.json({ message: 'Already in queue', queueItem: existingQueueItem });
@@ -59,7 +68,7 @@ app.post('/api/queue/add', (req, res) => {
     patientName: patient.name,
     department: department || 'General Consultation',
     status: 'Waiting',
-    waitTimeEstimated: Math.floor(Math.random() * 20) + 5, // 5-25 mins
+    waitTimeEstimated: Math.floor(Math.random() * 20) + 5,
     joinedAt: new Date().toISOString()
   };
 
@@ -75,7 +84,7 @@ app.get('/api/queue', (req, res) => {
   res.json(db.queue);
 });
 
-// 3b. Doctor clicks "Next" - advance queue (remove first patient)
+// 3b. Doctor clicks "Next"
 app.post('/api/queue/next', (req, res) => {
   const db = readDB();
   if (db.queue.length === 0) {
@@ -94,8 +103,6 @@ app.post('/api/queue/next', (req, res) => {
 
 // 4. Mock AI - Explain Medical Report
 app.post('/api/ai/report', (req, res) => {
-  // Simulating an AI taking a complex report and returning simple text
-  // In reality, this would call AWS Bedrock or OpenAI
   const { reportText } = req.body;
   
   setTimeout(() => {
@@ -103,12 +110,11 @@ app.post('/api/ai/report', (req, res) => {
       original: reportText,
       explanation: "AI Explanation: Your report indicates a mild case of iron deficiency anemia (low hemoglobin levels). However, your other metabolic panels are within the normal range. I recommend discussing an iron supplement schedule with your doctor."
     });
-  }, 1500); // Simulate network/AI delay
+  }, 1500);
 });
 
 // 5. Mock AI - Doctor Patient Summary
 app.post('/api/ai/summary', (req, res) => {
-  // Simulating an AI generating a structured summary for a doctor based on patient data
   const { patientId } = req.body;
   const db = readDB();
   const patient = db.patients.find(p => p.id === patientId);
@@ -123,7 +129,6 @@ app.post('/api/ai/summary', (req, res) => {
   }, 1200);
 });
 
-// Start Server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
