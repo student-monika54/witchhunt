@@ -7,9 +7,26 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const dbPath = path.join(__dirname, 'db.json');
 
-// Updated CORS to allow your Vercel frontend specifically
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'https://care-flow-ai-nine.vercel.app',
+  'https://careflow-ai.onrender.com',
+  'http://localhost:5176',
+  'http://localhost:5177',
+  'http://localhost:5173'
+].filter(Boolean);
+
 app.use(cors({
-  origin: 'https://care-flow-ai-nine.vercel.app',
+  origin: (origin, callback) => {
+    const isLocalDevOrigin = /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin || '');
+
+    if (!origin || allowedOrigins.includes(origin) || isLocalDevOrigin) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new Error('Not allowed by CORS'));
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
