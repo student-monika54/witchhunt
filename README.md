@@ -88,11 +88,11 @@ Built as a demonstration of how multi-agent AI orchestration can reduce administ
 **The Problem (Without LayerHealth)**
 
 Eleanor, a 42-year-old diabetic patient, arrives at the hospital with recurrent fatigue at 9:30 AM on May 8, 2026:
-- ⏳ **30 minutes** manually filling paper forms, repeatedly providing medical history
-- 📋 **15 minutes** waiting to get her blood pressure checked again (already recorded 3 months ago)
-- ⚠️ **Alert missed**: Nobody notices her Penicillin allergy in the paper file
-- 😰 **Anxiety**: No idea how long the wait is or what position she's in queue
-- 🚫 **Later at home**: Cannot find her prescription schedule or follow-up appointment info
+-  **30 minutes** manually filling paper forms, repeatedly providing medical history
+-  **15 minutes** waiting to get her blood pressure checked again (already recorded 3 months ago)
+-  **Alert missed**: Nobody notices her Penicillin allergy in the paper file
+-  **Anxiety**: No idea how long the wait is or what position she's in queue
+-  **Later at home**: Cannot find her prescription schedule or follow-up appointment info
 
 **The Solution (With LayerHealth)**
 
@@ -177,16 +177,16 @@ Advice:
 - Iron-rich diet
 - Follow-up if symptoms persist
 
-⚕️ Doctor Notes: "Patient compliant, good 
+Doctor Notes: "Patient compliant, good 
 prognosis. Advised iron supplementation."
 
-Status: ✅ SAVED to digital record
+Status:  SAVED to digital record
 ─────────────────────────────────────
 
 Eleanor receives SMS + Email (automatically):
-📧 Discharge summary
-💊 Prescription schedule with timers
-📅 Appointment reminder: 10 May 2026, 2:00 PM
+ Discharge summary
+ Prescription schedule with timers
+ Appointment reminder: 10 May 2026, 2:00 PM
 ```
 
 **Real Results for Eleanor:**
@@ -813,7 +813,7 @@ PORT=5001
 
 ## Security Notes
 
-⚠️ **MVP Security**: This is a demonstration MVP. Before production deployment:
+ **MVP Security**: This is a demonstration MVP. Before production deployment:
 - [ ] Implement HTTPS/TLS
 - [ ] Add authentication (JWT/OAuth 2.0)
 - [ ] Encrypt sensitive data (PII, medical records)
